@@ -28,21 +28,29 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        return httpSecurity
+//                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
+//                .httpBasic(Customizer.withDefaults())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(http -> {
+//                    //configurar los endpoints publicos
+//                    http.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
+//                    //configurar los endpoint privados
+//                    http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("READ");  //definimos autorizaciones
+//                    //configurar el resto de endpoints NO ESPECIFICADOS
+//                    http.anyRequest().denyAll();
+//                })
+//                .build();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(csrf -> csrf.disable()) //este es un control para una vulneribilidad
+                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(http -> {
-                    //configurar los endpoints publicos
-                    http.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
-                    //configurar los endpoint privados
-                    http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("READ");  //definimos autorizaciones
-                    //configurar el resto de endpoints NO ESPECIFICADOS
-                    http.anyRequest().denyAll();
-                })
                 .build();
     }
 
@@ -55,30 +63,14 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService()); //aun sin conectar en BD
+        provider.setUserDetailsService(null); //aun sin conectar en BD
         return provider;
     }
 
 
     //Usuario configurado para prueba
-    @Bean
-    public UserDetailsService userDetailsService(){
-        List<UserDetails> userDetailsList = new ArrayList<>();
 
-        userDetailsList.add(User.withUsername("Andy")
-                .password("andy1")
-                .roles("ADMIN")
-                .authorities("READ", "CREATE")
-                .build());
 
-        userDetailsList.add(User.withUsername("Jose")
-                .password("jose")
-                .roles("USER")
-                .authorities("READ")
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
