@@ -1,5 +1,6 @@
 package com.andyg.SpringSecurityApp.config;
 
+import com.andyg.SpringSecurityApp.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -28,31 +30,32 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity
-//                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
-//                .httpBasic(Customizer.withDefaults())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(http -> {
-//                    //configurar los endpoints publicos
-//                    http.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
-//                    //configurar los endpoint privados
-//                    http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("READ");  //definimos autorizaciones
-//                    //configurar el resto de endpoints NO ESPECIFICADOS
-//                    http.anyRequest().denyAll();
-//                })
-//                .build();
-//    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(http -> {
+                    //configurar los endpoints publicos
+                    http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll();
+                    //configurar los endpoint privados
+                    http.requestMatchers(HttpMethod.POST, "/auth/post").hasRole("ADMIN");  //definimos autorizaciones
+                    http.requestMatchers(HttpMethod.POST, "/auth/patch").hasAnyAuthority("REFACTOR");
+                    //configurar el resto de endpoints NO ESPECIFICADOS
+                    http.anyRequest().denyAll();
+                })
                 .build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        return httpSecurity
+//                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
+//                .httpBasic(Customizer.withDefaults())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .build();
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -60,10 +63,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(null); //aun sin conectar en BD
+        provider.setUserDetailsService(userDetailsService); //aun sin conectar en BD
         return provider;
     }
 
@@ -74,7 +77,11 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();  //NoOpPasswordEncoder solo para pruebas
+        return new BCryptPasswordEncoder();  //NoOpPasswordEncoder solo para pruebas y BCryptPasswordEncoder encripta
+    }
+
+    public static void main(String[] args){
+        System.out.println(new BCryptPasswordEncoder().encode("1234"));
     }
 
 }
