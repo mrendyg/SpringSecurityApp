@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Set;  //Permite una lista sin repeticion de datos
 
 @Setter
 @Getter
@@ -25,21 +24,23 @@ public class UserEntity {
     private String password;
 
     @Column(name = "is_enable")
-    private boolean isEnable;
+    private boolean isEnable; //Esta habilitado
 
     @Column(name = "account_No_Expired")
-    private boolean accountNoExpired;
+    private boolean accountNoExpired; //la cuenta no ha expirado
 
     @Column(name = "account_No_Locked")
-    private boolean accountNoLocked;
+    private boolean accountNoLocked; //la cuenta no esta bloqueada
 
     @Column(name = "credential_No_Expired")
-    private boolean credentialNoExpired;
+    private boolean credentialNoExpired; //las credenciales no han expirado
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles= new HashSet<>();
+
+    //tabla de unificacion de Usuario con sus Roles
 
 }
 

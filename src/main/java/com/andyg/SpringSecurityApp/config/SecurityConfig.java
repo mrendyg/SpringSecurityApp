@@ -33,9 +33,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
+//                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
                 .httpBasic(Customizer.withDefaults())
+        //                esta línea de configuración establece la autenticación básica HTTP para tu aplicación utilizando los
+        //                valores predeterminados proporcionados por Spring Security. Esto significa que Spring Security
+        //                manejará la autenticación de los usuarios utilizando un formulario de inicio de sesión básico y
+        //                proporcionará las funcionalidades estándar asociadas con la autenticación básica HTTP
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                //        La configuración STATELESS es comúnmente utilizada en aplicaciones RESTful donde se desea que cada
+                //        solicitud sea independiente y no se requiera mantener un estado de sesión en el servidor. Esto puede
+                //        ser útil para mejorar la escalabilidad y la seguridad al eliminar la necesidad de mantener sesiones en el servidor.
                 .authorizeHttpRequests(http -> {
                     //configurar los endpoints publicos
                     http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll();
@@ -45,7 +52,14 @@ public class SecurityConfig {
                     //configurar el resto de endpoints NO ESPECIFICADOS
                     http.anyRequest().denyAll();
                 })
+
+                //        Esta configuración establece reglas de autorización específicas para diferentes endpoints y métodos HTTP
+                //        en tu aplicación Spring Boot, permitiendo o denegando el acceso basado en los roles de usuario y las
+                //        autoridades específicas definidas en tu sistema de autenticación.
                 .build();
+                //        finaliza la configuración de seguridad y construye el objeto HttpSecurity final que será utilizado
+                //        por Spring Security para aplicar las reglas de autorización definidas en tu aplicación.
+                //        Una vez que se llama a .build(), la configuración de seguridad se considera completa y lista para ser aplicada.
     }
 
 //    @Bean
@@ -81,7 +95,8 @@ public class SecurityConfig {
     }
 
     public static void main(String[] args){
-        System.out.println(new BCryptPasswordEncoder().encode("1234"));
+        System.out.println(new BCryptPasswordEncoder().encode("Tattersall.2024"));
+//        metodo de encriptacion de textos, se debe mejorar para configurar en cada password registrada
     }
 
 }

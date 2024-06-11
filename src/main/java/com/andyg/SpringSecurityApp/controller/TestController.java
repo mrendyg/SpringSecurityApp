@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@PreAuthorize("denyAll()")
+@PreAuthorize("denyAll()") //denegamos acceso a todos para poder habilitarlo mas abajo en cada endpoint
 public class TestController {
 
     @GetMapping("/get")
@@ -22,6 +22,7 @@ public class TestController {
     }
 
     @PutMapping("/put")
+    @PreAuthorize("hasAuthority('CREATE')")
     public String helloPut(){
         return "Hello World - PUT";
     }

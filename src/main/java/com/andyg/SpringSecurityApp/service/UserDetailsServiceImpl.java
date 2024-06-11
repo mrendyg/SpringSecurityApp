@@ -17,10 +17,13 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository; //procesamos los datos de nuestros usuarias a traves de
+    // nuestra interface
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        //Configuracion de user details
 
         UserEntity userEntity = userRepository.findUserEntityByusername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username
