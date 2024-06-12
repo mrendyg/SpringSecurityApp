@@ -1,7 +1,6 @@
 package com.andyg.SpringSecurityApp.persistence.repository;
 
 import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;

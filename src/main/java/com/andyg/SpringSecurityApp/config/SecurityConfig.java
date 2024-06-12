@@ -47,8 +47,16 @@ public class SecurityConfig {
                     //configurar los endpoints publicos
                     http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll();
                     //configurar los endpoint privados
-                    http.requestMatchers(HttpMethod.POST, "/auth/post").hasRole("ADMIN");  //definimos autorizaciones
-                    http.requestMatchers(HttpMethod.POST, "/auth/patch").hasAnyAuthority("REFACTOR");
+                    http.requestMatchers(HttpMethod.GET, "/auth/post").hasAnyAuthority("CREATE",
+                            "READ", "UPDATE", "DELETE");  //definimos autorizaciones
+                    //Acceso de prueba para todos los endpoints antes de ser definidos
+                    http.requestMatchers(HttpMethod.GET, "/auth/users/test").hasAnyRole("DEVELOPER", "ADMIN",
+                            "INVITED", "USER");
+
+                    http.requestMatchers(HttpMethod.GET, "/auth/users/list").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.GET, "/auth/users/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.GET, "/auth/users/create").hasAnyRole("DEVELOPER", "ADMIN");
+
                     //configurar el resto de endpoints NO ESPECIFICADOS
                     http.anyRequest().denyAll();
                 })
@@ -91,11 +99,11 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();  //NoOpPasswordEncoder solo para pruebas y BCryptPasswordEncoder encripta
+        return new BCryptPasswordEncoder();   //NoOpPasswordEncoder solo para pruebas y BCryptPasswordEncoder encripta
     }
 
     public static void main(String[] args){
-        System.out.println(new BCryptPasswordEncoder().encode("Tattersall.2024"));
+        System.out.println(new BCryptPasswordEncoder().encode("1234"));
 //        metodo de encriptacion de textos, se debe mejorar para configurar en cada password registrada
     }
 

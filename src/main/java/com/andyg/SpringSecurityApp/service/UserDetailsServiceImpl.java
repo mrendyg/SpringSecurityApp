@@ -43,7 +43,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
         //devolvemos el ususario en un objeto que entienda spring scurity
-
         return new User(userEntity.getUsername(),
                 userEntity.getPassword(),
                 userEntity.isEnable(),

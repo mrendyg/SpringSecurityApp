@@ -1,12 +1,13 @@
 package com.andyg.SpringSecurityApp.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/auth")
-@PreAuthorize("denyAll()") //denegamos acceso a todos para poder habilitarlo mas abajo en cada endpoint
+@PreAuthorize("denyAll()")
 public class TestController {
 
     @GetMapping("/get")
@@ -15,25 +16,23 @@ public class TestController {
         return "Hello World - GET";
     }
 
-    @PostMapping("/post")
-    @PreAuthorize("hasAuthority('CREATE') or hasAuthority('READ')")
+    @GetMapping("/post")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATE') or hasAuthority('UPDATE') or hasAuthority('DELETE')")
     public String helloPost(){
         return "Hello World - POST";
     }
 
     @PutMapping("/put")
-    @PreAuthorize("hasAuthority('CREATE')")
+
     public String helloPut(){
         return "Hello World - PUT";
     }
 
-    @DeleteMapping("/delete")
     public String helloDelete(){
         return "Hello World - DELETE";
     }
 
     @PatchMapping("/patch")
-    @PreAuthorize("hasAuthority('REFACTOR')")
     public String helloPatch(){
         return "Hello World - PATCH";
     }

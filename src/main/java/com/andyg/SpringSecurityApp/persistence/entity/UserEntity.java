@@ -3,6 +3,7 @@ package com.andyg.SpringSecurityApp.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;  //Permite una lista sin repeticion de datos
 
@@ -39,8 +40,10 @@ public class UserEntity {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles= new HashSet<>();
-
     //tabla de unificacion de Usuario con sus Roles
+
+    @Column(name = "DataTime_Create")
+    private LocalDateTime DateCreate;
 
 }
 
