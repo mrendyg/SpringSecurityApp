@@ -33,7 +33,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-//                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
+                .csrf(csrf -> csrf.disable()) //este es un control para una vulnerabilidad
                 .httpBasic(Customizer.withDefaults())
         //                esta línea de configuración establece la autenticación básica HTTP para tu aplicación utilizando los
         //                valores predeterminados proporcionados por Spring Security. Esto significa que Spring Security
@@ -44,18 +44,16 @@ public class SecurityConfig {
                 //        solicitud sea independiente y no se requiera mantener un estado de sesión en el servidor. Esto puede
                 //        ser útil para mejorar la escalabilidad y la seguridad al eliminar la necesidad de mantener sesiones en el servidor.
                 .authorizeHttpRequests(http -> {
-                    //configurar los endpoints publicos
-                    http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll();
-                    //configurar los endpoint privados
-                    http.requestMatchers(HttpMethod.GET, "/auth/post").hasAnyAuthority("CREATE",
-                            "READ", "UPDATE", "DELETE");  //definimos autorizaciones
-                    //Acceso de prueba para todos los endpoints antes de ser definidos
-                    http.requestMatchers(HttpMethod.GET, "/auth/users/test").hasAnyRole("DEVELOPER", "ADMIN",
-                            "INVITED", "USER");
+
 
                     http.requestMatchers(HttpMethod.GET, "/auth/users/list").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/auth/users/{id}").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/auth/users/create").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/auth/users/create").hasAnyRole("DEVELOPER", "ADMIN");
+
+
+                    //Pruebas
+                    http.requestMatchers(HttpMethod.POST, "/test/post").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.GET, "/test/get").hasAnyRole("DEVELOPER", "ADMIN");
 
                     //configurar el resto de endpoints NO ESPECIFICADOS
                     http.anyRequest().denyAll();

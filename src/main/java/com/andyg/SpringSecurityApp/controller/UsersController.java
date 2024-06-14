@@ -20,34 +20,37 @@ import java.util.Optional;
 public class UsersController {
 
     private UserService userService;
+    private UserRepository userRepository;
 
 
     //lista de usuarios
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATE') or hasAuthority('UPDATE') or hasAuthority('DELETE')")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('DELETE')")
     public Iterable<UserEntity> userList() {
         return userService.findAll();
     }
 
     //Busqueda de usuarios por ID
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATE') or hasAuthority('UPDATE') or hasAuthority('DELETE')")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('UPDATE')")
     public UserEntity userGetId(@PathVariable long id) {
         return  userService.findById(id);
     }
 
+    //Creacion de usuarios
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('CREATE')")
     public UserEntity createUser(@RequestBody UserEntity user) {
         user.setDateCreate(LocalDateTime.now());
-        return userService.createUser(user);
+        return userService.createdUser(user);
     }
 
-
+    //Get de pruebas de acceso
     @GetMapping("/test")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATE') or hasAuthority('UPDATE') or hasAuthority('DELETE')")
+    @PreAuthorize("hasRole('DEVELOPER')")
     public String testText() {
         return "Test Text";
     }

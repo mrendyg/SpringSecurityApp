@@ -21,7 +21,7 @@ public class UserService {
         return  userRepository.findById(id).orElse(null);
     }
 
-    public UserEntity createUser(UserEntity user){
+    public UserEntity createdUser(UserEntity user){
         user.setDateCreate(LocalDateTime.now());
         return userRepository.save(user);
     }
