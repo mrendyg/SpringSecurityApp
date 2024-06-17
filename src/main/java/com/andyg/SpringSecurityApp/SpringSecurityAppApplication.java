@@ -20,7 +20,7 @@ public class SpringSecurityAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringSecurityAppApplication.class, args);
 	}
-
+//
 //	@Bean
 //	CommandLineRunner init(UserRepository userRepository){
 //		return args -> {
@@ -97,6 +97,17 @@ public class SpringSecurityAppApplication {
 //					.DateCreate(LocalDateTime.now())
 //					.build();
 //
+//			UserEntity userJuan = UserEntity.builder()
+//					.username("Juan")
+//					.password("$2a$10$7lselJxx/vhxOqlt.f09pe5wSugKbk1Dbfn5dblmaSeMpJbpaTSHC")
+//					.isEnable(true)
+//					.accountNoExpired(true)
+//					.accountNoLocked(true)
+//					.credentialNoExpired(true)
+//					.roles(Set.of(adminRole))
+//					.DateCreate(LocalDateTime.now())
+//					.build();
+//
 //			UserEntity userPablo = UserEntity.builder()
 //					.username("Pablo")
 //					.password("$2a$10$7lselJxx/vhxOqlt.f09pe5wSugKbk1Dbfn5dblmaSeMpJbpaTSHC")
@@ -119,9 +130,9 @@ public class SpringSecurityAppApplication {
 //					.DateCreate(LocalDateTime.now())
 //					.build();
 //
-//			userRepository.saveAll(List.of(userAndy, userLeo, userCristian, userPablo, userDavid));
+//			userRepository.saveAll(List.of(userAndy, userLeo, userCristian, userJuan, userPablo, userDavid));
 //		};
-
-	//}
+//
+//	}
 
 }

@@ -1,15 +1,13 @@
 package com.andyg.SpringSecurityApp.controller;
 
 import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
-import com.andyg.SpringSecurityApp.persistence.repository.UserRepository;
 import com.andyg.SpringSecurityApp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 
 @CrossOrigin
@@ -20,8 +18,6 @@ import java.util.Optional;
 public class UsersController {
 
     private UserService userService;
-    private UserRepository userRepository;
-
 
     //lista de usuarios
     @GetMapping("/list")
@@ -45,14 +41,23 @@ public class UsersController {
     @PreAuthorize("hasAuthority('CREATE')")
     public UserEntity createUser(@RequestBody UserEntity user) {
         user.setDateCreate(LocalDateTime.now());
-        return userService.createdUser(user);
+        return userService.createsUser(user);
     }
 
-    //Get de pruebas de acceso
-    @GetMapping("/test")
+    //Actualizacion de usuarios
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public UserEntity updateUser(@PathVariable long id, @RequestBody UserEntity user){
+        return  userService.updatesUser(id, user);
+    }
+
+    //Borrado de usuarios
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('DEVELOPER')")
-    public String testText() {
-        return "Test Text";
+    public void deleteUser(@PathVariable long id){
+        userService.deletesUser(id);
     }
 
 }

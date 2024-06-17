@@ -45,15 +45,11 @@ public class SecurityConfig {
                 //        ser útil para mejorar la escalabilidad y la seguridad al eliminar la necesidad de mantener sesiones en el servidor.
                 .authorizeHttpRequests(http -> {
 
-
                     http.requestMatchers(HttpMethod.GET, "/auth/users/list").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/auth/users/{id}").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.POST, "/auth/users/create").hasAnyRole("DEVELOPER", "ADMIN");
-
-
-                    //Pruebas
-                    http.requestMatchers(HttpMethod.POST, "/test/post").hasAnyRole("DEVELOPER", "ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/test/get").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.PUT, "/auth/users/update/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.DELETE, "/auth/users/delete/{id}").hasAnyRole("DEVELOPER");
 
                     //configurar el resto de endpoints NO ESPECIFICADOS
                     http.anyRequest().denyAll();
@@ -86,7 +82,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService); //aun sin conectar en BD
+        provider.setUserDetailsService(userDetailsService);
         return provider;
     }
 
