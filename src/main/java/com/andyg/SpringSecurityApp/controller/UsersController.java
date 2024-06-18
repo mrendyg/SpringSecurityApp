@@ -22,7 +22,7 @@ public class UsersController {
     //lista de usuarios
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('DELETE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     public Iterable<UserEntity> userList() {
         return userService.findAll();
     }
@@ -30,7 +30,7 @@ public class UsersController {
     //Busqueda de usuarios por ID
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('UPDATE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     public UserEntity userGetId(@PathVariable long id) {
         return  userService.findById(id);
     }
@@ -44,7 +44,7 @@ public class UsersController {
         return userService.createsUser(user);
     }
 
-    //Actualizacion de usuarios
+    //Actualization de usuarios
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
