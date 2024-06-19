@@ -4,6 +4,8 @@ import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,9 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Iterable<UserEntity> findAll(){
         return userRepository.findAll();
     }
@@ -23,7 +28,9 @@ public class UserService {
         return  userRepository.findById(id).orElse(null);
     }
 
-    public UserEntity createsUser(UserEntity user){
+    public UserEntity createsUser(UserEntity user, String rawPassword) {
+        String encryptedPassword = passwordEncoder.encode(rawPassword);
+        user.setPassword(encryptedPassword);
         user.setDateCreate(LocalDateTime.now());
         return userRepository.save(user);
     }
@@ -31,12 +38,17 @@ public class UserService {
     public UserEntity updatesUser (long id, UserEntity user){
         UserEntity updatedUser = findById(id);
         updatedUser.setUsername(user.getUsername());
-        updatedUser.setPassword(user.getPassword());
+
         updatedUser.setEnable(user.isEnable());
         updatedUser.setAccountNoExpired(user.isAccountNoExpired());
         updatedUser.setAccountNoLocked(user.isAccountNoLocked());
         updatedUser.setCredentialNoExpired(user.isCredentialNoExpired());
         updatedUser.setRoles(user.getRoles());
+
+        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+            String encryptedPassword = passwordEncoder.encode(updatedUser.getPassword());
+            updatedUser.setPassword(encryptedPassword);
+        }
         return userRepository.save(updatedUser);
     }
 

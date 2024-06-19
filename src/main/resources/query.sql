@@ -1,6 +1,9 @@
 SELECT
+    u.id,
     u.username,
+    r.id AS id_role,
     r.role_name AS role_name,
+    p.id AS id_permission
     p.name AS permission_name
 FROM
     users u

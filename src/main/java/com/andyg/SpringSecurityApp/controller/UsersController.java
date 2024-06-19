@@ -1,5 +1,6 @@
 package com.andyg.SpringSecurityApp.controller;
 
+import com.andyg.SpringSecurityApp.persistence.DTO.UserDTO;
 import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
 import com.andyg.SpringSecurityApp.service.UserService;
 import lombok.AllArgsConstructor;
@@ -39,9 +40,12 @@ public class UsersController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('CREATE')")
-    public UserEntity createUser(@RequestBody UserEntity user) {
-        user.setDateCreate(LocalDateTime.now());
-        return userService.createsUser(user);
+    public UserEntity createUser(@RequestBody UserDTO userDTO) {
+        UserEntity user = new UserEntity();
+        user.setUsername(userDTO.getUsername());
+        // Aquí, en lugar de setear la contraseña directamente en la entidad,
+        // pasamos la contraseña sin encriptar como segundo parámetro al servicio
+        return userService.createsUser(user, userDTO.getPassword());
     }
 
     //Actualization de usuarios
