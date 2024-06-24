@@ -25,16 +25,16 @@ public class UserEntity {
     private String password;
 
     @Column(name = "is_enable")
-    private boolean isEnable; //Esta habilitado
+    private boolean isEnable = true; //Esta habilitado
 
     @Column(name = "account_No_Expired")
-    private boolean accountNoExpired; //la cuenta no ha expirado
+    private boolean accountNoExpired = true; //la cuenta no ha expirado
 
     @Column(name = "account_No_Locked")
-    private boolean accountNoLocked; //la cuenta no esta bloqueada
+    private boolean accountNoLocked = true; //la cuenta no esta bloqueada
 
     @Column(name = "credential_No_Expired")
-    private boolean credentialNoExpired; //las credenciales no han expirado
+    private boolean credentialNoExpired = true; //las credenciales no han expirado
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),

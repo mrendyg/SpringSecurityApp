@@ -45,6 +45,8 @@ public class SecurityConfig {
                 //        ser útil para mejorar la escalabilidad y la seguridad al eliminar la necesidad de mantener sesiones en el servidor.
                 .authorizeHttpRequests(http -> {
 
+
+                    //endpoints de administracion de ususarios
                     http.requestMatchers(HttpMethod.GET, "/auth/users/list").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/auth/users/{id}").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.POST, "/auth/users/create").hasAnyRole("DEVELOPER", "ADMIN");
@@ -95,10 +97,10 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();   //NoOpPasswordEncoder solo para pruebas y BCryptPasswordEncoder encripta
     }
-
-    public static void main(String[] args){
-        System.out.println(new BCryptPasswordEncoder().encode("1234"));
-//        metodo de encriptacion de textos, se debe mejorar para configurar en cada password registrada
-    }
+//
+//    public static void main(String[] args){
+//        System.out.println(new BCryptPasswordEncoder().encode("1234"));
+////        metodo de encriptacion de textos, se debe mejorar para configurar en cada password registrada
+//    }
 
 }

@@ -9,8 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
-
-
 @CrossOrigin
 @RestController
 @AllArgsConstructor
@@ -43,8 +41,7 @@ public class UsersController {
     public UserEntity createUser(@RequestBody UserDTO userDTO) {
         UserEntity user = new UserEntity();
         user.setUsername(userDTO.getUsername());
-        // Aquí, en lugar de setear la contraseña directamente en la entidad,
-        // pasamos la contraseña sin encriptar como segundo parámetro al servicio
+        user.setPassword(userDTO.getPassword());
         return userService.createsUser(user, userDTO.getPassword());
     }
 
