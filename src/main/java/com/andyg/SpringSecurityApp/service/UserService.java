@@ -1,11 +1,10 @@
 package com.andyg.SpringSecurityApp.service;
 
-import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
+import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

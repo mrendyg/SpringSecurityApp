@@ -1,18 +1,7 @@
 package com.andyg.SpringSecurityApp;
 
-import com.andyg.SpringSecurityApp.persistence.entity.PermissionEntity;
-import com.andyg.SpringSecurityApp.persistence.entity.RoleEntity;
-import com.andyg.SpringSecurityApp.persistence.entity.RoleEnum;
-import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
-import com.andyg.SpringSecurityApp.persistence.repository.UserRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class SpringSecurityAppApplication {

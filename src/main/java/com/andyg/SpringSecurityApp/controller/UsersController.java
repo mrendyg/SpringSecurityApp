@@ -1,13 +1,12 @@
 package com.andyg.SpringSecurityApp.controller;
 
 import com.andyg.SpringSecurityApp.persistence.DTO.UserDTO;
-import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
+import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
 import com.andyg.SpringSecurityApp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
 
 @CrossOrigin
 @RestController

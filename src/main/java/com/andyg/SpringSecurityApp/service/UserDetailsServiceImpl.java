@@ -1,6 +1,6 @@
 package com.andyg.SpringSecurityApp.service;
 
-import com.andyg.SpringSecurityApp.persistence.entity.UserEntity;
+import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
