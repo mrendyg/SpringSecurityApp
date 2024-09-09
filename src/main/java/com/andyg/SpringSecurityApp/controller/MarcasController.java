@@ -3,6 +3,7 @@ package com.andyg.SpringSecurityApp.controller;
 import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.MarcaEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.MarcaRepository;
+import com.andyg.SpringSecurityApp.service.MarcasService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,13 @@ import java.util.Optional;
 public class MarcasController {
 
     @Autowired
-    private MarcaRepository marcaRepository;
+    private MarcasService marcasService;
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
-    public List<MarcaEntity> userList() {
-        return marcaRepository.findAll();
+    public List<MarcaEntity> marcaList() {
+        return marcasService.getsMarcaList();
     }
 
 
@@ -32,7 +33,7 @@ public class MarcasController {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     public MarcaEntity getMarcaId (@PathVariable long id){
-        return marcaRepository.findById(id).orElse(null);
+        return marcasService.getsIdMarca(id);
     }
 
 
@@ -40,7 +41,7 @@ public class MarcasController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     public MarcaEntity createMarca(@RequestBody MarcaEntity marca){
-        return marcaRepository.save(marca);
+        return marcasService.createsMarca(marca);
     }
 
 
@@ -48,32 +49,14 @@ public class MarcasController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     public MarcaEntity updateMarca(@PathVariable long id, @RequestBody MarcaEntity marca){
-        MarcaEntity updatedMarca = marcaRepository.findById(id).get();
-        updatedMarca.setName(marca.getName());
-        updatedMarca.setDescription(marca.getDescription());
-        return marcaRepository.save(updatedMarca);
+        return marcasService.updatesMarca(id, marca);
     }
 
-    /*
-    //Borrado de usuarios
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('DEVELOPER')")
-    public void deleteUser(@PathVariable long id){
-        userService.deletesUser(id);
-    }
-     */
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('DEVELOPER')")
     public void deleteMarca(@PathVariable long id){
-        Optional<MarcaEntity> optionalMarca = marcaRepository.findById(id);
-        if (optionalMarca.isPresent()){
-            MarcaEntity deletedMarca = optionalMarca.get();
-            marcaRepository.delete(deletedMarca);
-        } else {
-            throw new EntityNotFoundException("Usuario no encontrado");
-        }
+        marcasService.deletesMarca(id);
     }
 }
