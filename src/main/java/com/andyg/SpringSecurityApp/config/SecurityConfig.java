@@ -53,6 +53,13 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/auth/users/update/{id}").hasAnyRole("DEVELOPER", "ADMIN");
                     http.requestMatchers(HttpMethod.DELETE, "/auth/users/delete/{id}").hasAnyRole("DEVELOPER");
 
+                    http.requestMatchers(HttpMethod.GET, "/auth/marcas/list").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.GET, "/auth/marcas/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.POST, "/auth/marcas/create").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.PUT, "/auth/marcas/update/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.DELETE, "/auth/marcas/delete/{id}").hasAnyRole("DEVELOPER");
+
+
                     //configurar el resto de endpoints NO ESPECIFICADOS
                     http.anyRequest().denyAll();
                 })
