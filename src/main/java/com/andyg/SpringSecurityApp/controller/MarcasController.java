@@ -1,10 +1,7 @@
 package com.andyg.SpringSecurityApp.controller;
 
-import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.MarcaEntity;
-import com.andyg.SpringSecurityApp.persistence.repository.MarcaRepository;
 import com.andyg.SpringSecurityApp.service.MarcasService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,6 +1,5 @@
 package com.andyg.SpringSecurityApp.controller;
 
-import com.andyg.SpringSecurityApp.persistence.entity.vehicle.MarcaEntity;
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.ModelEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.ModelRepository;
 import jakarta.persistence.EntityNotFoundException;
