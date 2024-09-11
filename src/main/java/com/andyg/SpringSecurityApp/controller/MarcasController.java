@@ -23,7 +23,7 @@ public class MarcasController {
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
+    @PreAuthorize("hasAuthority('READ')")
     public List<MarcaEntity> marcaList() {
         return marcasService.getsMarcaList();
     }
@@ -31,7 +31,7 @@ public class MarcasController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
+    @PreAuthorize("hasAuthority('READ')")
     public MarcaEntity getMarcaId (@PathVariable long id){
         return marcasService.getsIdMarca(id);
     }

@@ -19,23 +19,20 @@ import java.util.Optional;
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private CategoryService categoryService;
 
     @GetMapping("/list")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
+    @PreAuthorize("hasAuthority('READ')")
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryEntity> categoryList (){
         return categoryService.getsCategoryList();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
+    @PreAuthorize("hasAuthority('READ')")
     @ResponseStatus(HttpStatus.OK)
     public CategoryEntity getCategory(@PathVariable Long id){
-        return categoryRepository.findById(id).orElse(null);
+        return categoryService.getsIdCategory(id);
     }
 
     @PostMapping("/create")
@@ -49,22 +46,14 @@ public class CategoryController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public CategoryEntity updateCategory(@PathVariable Long id, @RequestBody CategoryEntity category){
-        CategoryEntity updatedCategory = categoryRepository.findById(id).get();
-        updatedCategory.setName(category.getName());
-        return categoryRepository.save(updatedCategory);
+        return categoryService.updatesCategory(id, category);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory (@PathVariable Long id){
-        Optional<CategoryEntity> optionalCategory = categoryRepository.findById(id);
-        if (optionalCategory.isPresent()){
-            CategoryEntity deletedMarca = optionalCategory.get();
-            categoryRepository.delete(deletedMarca);
-        } else {
-            throw new EntityNotFoundException("Categoria no encontrada");
-        }
+        categoryService.deletesCategory(id);
     }
 
 }

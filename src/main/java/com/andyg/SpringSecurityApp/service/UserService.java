@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -21,7 +23,9 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public Iterable<UserEntity> findAll(){
-        return userRepository.findAll();
+        List<UserEntity> list = userRepository.findAll();
+        list.sort(Comparator.comparing(UserEntity::getId));
+        return list;
     }
 
     public UserEntity findById (long id){
