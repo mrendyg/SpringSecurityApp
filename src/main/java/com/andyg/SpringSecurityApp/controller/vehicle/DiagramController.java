@@ -1,17 +1,14 @@
-package com.andyg.SpringSecurityApp.controller;
+package com.andyg.SpringSecurityApp.controller.vehicle;
 
-import com.andyg.SpringSecurityApp.persistence.entity.vehicle.CategoryEntity;
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.DiagramEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.DiagramRepository;
 import com.andyg.SpringSecurityApp.service.DiagramService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth/diagram")

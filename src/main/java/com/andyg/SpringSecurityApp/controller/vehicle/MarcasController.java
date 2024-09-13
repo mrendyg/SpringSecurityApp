@@ -1,4 +1,4 @@
-package com.andyg.SpringSecurityApp.controller;
+package com.andyg.SpringSecurityApp.controller.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.MarcaEntity;
 import com.andyg.SpringSecurityApp.service.MarcasService;
@@ -8,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth/marcas")

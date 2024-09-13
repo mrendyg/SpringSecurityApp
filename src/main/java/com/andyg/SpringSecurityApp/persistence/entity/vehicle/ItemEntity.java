@@ -34,12 +34,12 @@ public class ItemEntity {
     )
     private Set<DiagramEntity> diagrams;
 
-    @ManyToMany
-    @JoinTable(
-            name = "item_model",
-            joinColumns = @JoinColumn(name = "marca_id"),
-            inverseJoinColumns = @JoinColumn(name = "model_id")
-    )
-    private Set<ModelEntity> models;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "item_model",
+//            joinColumns = @JoinColumn(name = "marca_id"),
+//            inverseJoinColumns = @JoinColumn(name = "model_id")
+//    )
+//    private Set<ModelEntity> models;
 
 }

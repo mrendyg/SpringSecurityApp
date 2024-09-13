@@ -1,4 +1,4 @@
-package com.andyg.SpringSecurityApp.controller;
+package com.andyg.SpringSecurityApp.controller.user;
 
 import com.andyg.SpringSecurityApp.persistence.DTO.UserDTO;
 import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
