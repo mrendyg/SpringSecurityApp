@@ -24,7 +24,7 @@ public class ItemEntity {
     private String codigo;
 
     private String description;
-    private byte[] image;
+    private String image;
 
     @ManyToMany
     @JoinTable(

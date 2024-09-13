@@ -60,7 +60,16 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/auth/model/list").hasAuthority("READ");
                     http.requestMatchers(HttpMethod.GET, "/auth/model/{id}").hasAuthority("READ");
                     http.requestMatchers(HttpMethod.POST, "/auth/model/create").hasAuthority("CREATE");
-                    //configurar el resto de endpoints NO ESPECIFICADOS
+                    http.requestMatchers(HttpMethod.PUT, "/auth/model/update/{id}").hasAuthority("UPDATE");
+                    http.requestMatchers(HttpMethod.DELETE, "/auth/model/delete/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+
+                    http.requestMatchers(HttpMethod.GET, "/auth/diagram/list").hasAuthority("READ");
+                    http.requestMatchers(HttpMethod.GET, "/auth/diagram/{id}").hasAuthority("READ");
+                    http.requestMatchers(HttpMethod.POST, "/auth/diagram/create").hasAuthority("CREATE");
+                    http.requestMatchers(HttpMethod.PUT, "/auth/diagram/update/{id}").hasAuthority("UPDATE");
+                    http.requestMatchers(HttpMethod.DELETE, "/auth/diagram/delete/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+
+
                     http.anyRequest().denyAll();
                 })
 

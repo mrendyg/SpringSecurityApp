@@ -2,6 +2,7 @@ package com.andyg.SpringSecurityApp.controller;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.ModelEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.ModelRepository;
+import com.andyg.SpringSecurityApp.service.ModelService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,51 +21,42 @@ public class ModelController {
     @Autowired
     private ModelRepository modelRepository;
 
+    @Autowired
+    private ModelService modelService;
+
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('READ')")
     public List<ModelEntity> modelList(){
-        List<ModelEntity> list = modelRepository.findAll();
-        list.sort(Comparator.comparing(ModelEntity::getId));
-        return list;
+        return modelService.getsListModel();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAuthority('READ')")
     public ModelEntity getIdModel(@PathVariable Long id){
-        return modelRepository.findById(id).orElse(null);
+        return modelService.getsIdModel(id);
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     public ModelEntity createModel(@RequestBody ModelEntity model){
-        return modelRepository.save(model);
+        return modelService.createsModel(model);
     }
 
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasAuthority('UPDATE')")
     public ModelEntity updateModel(@PathVariable Long id, @RequestBody ModelEntity model){
-        ModelEntity updatedModel = modelRepository.findById(id).get();
-        updatedModel.setName(model.getName());
-        updatedModel.setDescription(model.getDescription());
-        updatedModel.setMarca(model.getMarca());
-        return modelRepository.save(updatedModel);
+        return modelService.updatesModel(id, model);
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAuthority('DELETE')")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public void deleteModel(@PathVariable Long id){
-        Optional<ModelEntity> optionalModel = modelRepository.findById(id);
-        if (optionalModel.isPresent()){
-            ModelEntity deletedModel = optionalModel.get();
-            modelRepository.delete(deletedModel);
-        } else {
-            throw new EntityNotFoundException("Modelo no encontrado");
-        }
+        modelService.deletesModel(id);
     }
 
 

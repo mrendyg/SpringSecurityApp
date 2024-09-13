@@ -18,8 +18,7 @@ public class DiagramEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private byte[] image;
-
+    private String image;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoryEntity category;
