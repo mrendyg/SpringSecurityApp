@@ -1,7 +1,7 @@
 package com.andyg.SpringSecurityApp.controller.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.MarcaEntity;
-import com.andyg.SpringSecurityApp.service.MarcasService;
+import com.andyg.SpringSecurityApp.service.vehicle.MarcasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

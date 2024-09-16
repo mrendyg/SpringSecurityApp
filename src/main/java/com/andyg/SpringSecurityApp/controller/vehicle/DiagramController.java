@@ -2,7 +2,7 @@ package com.andyg.SpringSecurityApp.controller.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.DiagramEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.DiagramRepository;
-import com.andyg.SpringSecurityApp.service.DiagramService;
+import com.andyg.SpringSecurityApp.service.vehicle.DiagramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

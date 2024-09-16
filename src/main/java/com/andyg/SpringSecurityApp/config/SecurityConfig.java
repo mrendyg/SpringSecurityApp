@@ -1,6 +1,6 @@
 package com.andyg.SpringSecurityApp.config;
 
-import com.andyg.SpringSecurityApp.service.UserDetailsServiceImpl;
+import com.andyg.SpringSecurityApp.service.user.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -74,6 +74,12 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/auth/item/create").hasAuthority("CREATE");
                     http.requestMatchers(HttpMethod.PUT, "/auth/item/update/{id}").hasAuthority("UPDATE");
                     http.requestMatchers(HttpMethod.DELETE, "/auth/item/delete/{id}").hasAnyRole("DEVELOPER", "ADMIN");
+
+                    http.requestMatchers(HttpMethod.GET, "/auth/vehicle/list").hasAuthority("READ");
+                    http.requestMatchers(HttpMethod.GET, "/auth/vehicle/{id}").hasAuthority("READ");
+                    http.requestMatchers(HttpMethod.POST, "/auth/vehicle/create").hasAuthority("CREATE");
+                    http.requestMatchers(HttpMethod.PUT, "/auth/vehicle/update/{id}").hasAuthority("UPDATE");
+                    http.requestMatchers(HttpMethod.DELETE, "/auth/vehicle/delete/{id}").hasAnyRole("DEVELOPER", "ADMIN");
 
                     http.anyRequest().denyAll();
                 })

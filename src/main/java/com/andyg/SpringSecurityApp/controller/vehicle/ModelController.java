@@ -2,7 +2,7 @@ package com.andyg.SpringSecurityApp.controller.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.ModelEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.ModelRepository;
-import com.andyg.SpringSecurityApp.service.ModelService;
+import com.andyg.SpringSecurityApp.service.vehicle.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

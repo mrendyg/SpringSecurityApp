@@ -2,7 +2,7 @@ package com.andyg.SpringSecurityApp.controller.user;
 
 import com.andyg.SpringSecurityApp.persistence.DTO.UserDTO;
 import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
-import com.andyg.SpringSecurityApp.service.UserService;
+import com.andyg.SpringSecurityApp.service.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

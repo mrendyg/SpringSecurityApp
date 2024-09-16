@@ -1,7 +1,7 @@
 package com.andyg.SpringSecurityApp.controller.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.CategoryEntity;
-import com.andyg.SpringSecurityApp.service.CategoryService;
+import com.andyg.SpringSecurityApp.service.vehicle.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

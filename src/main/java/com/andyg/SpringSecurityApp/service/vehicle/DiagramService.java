@@ -1,9 +1,8 @@
-package com.andyg.SpringSecurityApp.service;
+package com.andyg.SpringSecurityApp.service.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.DiagramEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.DiagramRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jdk.jshell.Diag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.andyg.SpringSecurityApp.service;
+package com.andyg.SpringSecurityApp.service.user;
 
 import com.andyg.SpringSecurityApp.persistence.entity.user.UserEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.UserRepository;

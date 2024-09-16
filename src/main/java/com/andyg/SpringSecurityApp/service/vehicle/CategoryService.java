@@ -1,4 +1,4 @@
-package com.andyg.SpringSecurityApp.service;
+package com.andyg.SpringSecurityApp.service.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.CategoryEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.CategoryRepository;
