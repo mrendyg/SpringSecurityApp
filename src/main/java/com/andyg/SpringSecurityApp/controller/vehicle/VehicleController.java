@@ -2,6 +2,7 @@ package com.andyg.SpringSecurityApp.controller.vehicle;
 
 import com.andyg.SpringSecurityApp.persistence.entity.vehicle.VehicleEntity;
 import com.andyg.SpringSecurityApp.persistence.repository.VehicleRepository;
+import com.andyg.SpringSecurityApp.service.vehicle.VehicleService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,48 +20,42 @@ public class VehicleController {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private VehicleService vehicleService;
+
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('READ')")
     @ResponseStatus(HttpStatus.OK)
-    public List<VehicleEntity> getsListVehicle(){
-        return vehicleRepository.findAll();
+    public List<VehicleEntity> getListVehicle(){
+        return vehicleService.getsListVehicle();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('READ')")
     @ResponseStatus(HttpStatus.OK)
     public VehicleEntity getIdVehicle(@PathVariable Long id){
-        return vehicleRepository.findById(id).orElse(null);
+        return vehicleService.getsIdVehicle(id);
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('CREATE')")
     @ResponseStatus(HttpStatus.OK)
     public VehicleEntity createVehicle(@RequestBody VehicleEntity vehicle){
-        return vehicleRepository.save(vehicle);
+        return vehicleService.createsVehicle(vehicle);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     @ResponseStatus(HttpStatus.CREATED)
-    public VehicleEntity updateVehicle(@RequestBody VehicleEntity vehicle, @PathVariable Long id){
-        VehicleEntity updatedVehicle = vehicleRepository.findById(id).get();
-        updatedVehicle.setVin(vehicle.getVin());
-        updatedVehicle.setModel(vehicle.getModel());
-        return vehicleRepository.save(vehicle);
+    public VehicleEntity updateVehicle(@PathVariable Long id, @RequestBody VehicleEntity vehicle){
+        return vehicleService.updatesVehicle(id, vehicle);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('DEVELOPER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteVehicle(@PathVariable Long id){
-        Optional<VehicleEntity> optionalVehicle = vehicleRepository.findById(id);
-        if(optionalVehicle.isPresent()){
-            VehicleEntity deletedVehicle = optionalVehicle.get();
-            vehicleRepository.delete(deletedVehicle);
-        } else {
-            throw new EntityNotFoundException("Vehiculo no encontrado");
-        }
+        vehicleService.deletesVehicle(id);
     }
 
 }
