@@ -16,9 +16,6 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
     private ItemService itemService;
 
     @GetMapping("/list")

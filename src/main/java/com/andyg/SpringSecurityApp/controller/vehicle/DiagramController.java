@@ -16,9 +16,6 @@ import java.util.List;
 public class DiagramController {
 
     @Autowired
-    private DiagramRepository diagramRepository;
-
-    @Autowired
     private DiagramService diagramService;
 
     @GetMapping("/list")

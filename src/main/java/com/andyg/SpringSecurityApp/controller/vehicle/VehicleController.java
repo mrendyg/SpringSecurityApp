@@ -18,9 +18,6 @@ import java.util.Optional;
 public class VehicleController {
 
     @Autowired
-    private VehicleRepository vehicleRepository;
-
-    @Autowired
     private VehicleService vehicleService;
 
     @GetMapping("/list")
@@ -39,7 +36,7 @@ public class VehicleController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('CREATE')")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public VehicleEntity createVehicle(@RequestBody VehicleEntity vehicle){
         return vehicleService.createsVehicle(vehicle);
     }

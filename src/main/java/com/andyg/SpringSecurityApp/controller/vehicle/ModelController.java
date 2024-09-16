@@ -15,8 +15,6 @@ import java.util.List;
 @PreAuthorize("denyAll()")
 public class ModelController {
 
-    @Autowired
-    private ModelRepository modelRepository;
 
     @Autowired
     private ModelService modelService;
