@@ -26,10 +26,10 @@ public class ItemEntity {
     private String description;
     private String image;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "item_diagram",
-            joinColumns = @JoinColumn(name = "marca_id"),
+            joinColumns = @JoinColumn(name = "item_id"),  // Cambiado a 'item_id'
             inverseJoinColumns = @JoinColumn(name = "diagram_id")
     )
     private Set<DiagramEntity> diagrams;

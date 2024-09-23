@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,8 +25,14 @@ public class DiagramEntity {
     @JoinColumn(name = "categoria_id")
     private CategoryEntity category;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private ModelEntity model;
+    @ManyToMany
+    @JoinTable(
+            name = "model_diagram",
+            joinColumns = @JoinColumn(name = "diagram_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id")
+    )
+    private Set<ModelEntity> model;
+
+
 
 }
